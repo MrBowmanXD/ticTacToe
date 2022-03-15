@@ -50,13 +50,17 @@ const GameState = (function (board) {
             gamePlaying = true;
           }
           if (gamePlaying) {
-            btn.textContent = 'X';
-            playerOnePlaying = false;
+            if (btn.textContent != 'X' || btn.textContent != 'O') {
+              btn.textContent = 'X';
+              playerOnePlaying = false;
+            }
           }
         } else {
           if (gamePlaying) {
-            btn.textContent = 'O';
-            playerOnePlaying = true;
+            if (btn.textContent != 'X' || btn.textContent != 'O') {
+              btn.textContent = 'O';
+              playerOnePlaying = true;
+            }
           }
         }
       });
