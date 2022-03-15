@@ -45,22 +45,22 @@ const GameState = (function (board) {
   function _btnClick() {
     board.forEach((btn) => {
       btn.addEventListener('click', () => {
+        if (btn.textContent === 'X' || btn.textContent === 'O') {
+          return;
+        }
+
         if (playerOnePlaying) {
           if (gamePlaying === false) {
             gamePlaying = true;
           }
           if (gamePlaying) {
-            if (btn.textContent != 'X' || btn.textContent != 'O') {
-              btn.textContent = 'X';
-              playerOnePlaying = false;
-            }
+            btn.textContent = 'X';
+            playerOnePlaying = false;
           }
         } else {
           if (gamePlaying) {
-            if (btn.textContent != 'X' || btn.textContent != 'O') {
-              btn.textContent = 'O';
-              playerOnePlaying = true;
-            }
+            btn.textContent = 'O';
+            playerOnePlaying = true;
           }
         }
       });
