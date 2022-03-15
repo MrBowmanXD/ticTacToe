@@ -7,6 +7,7 @@ const GameBoard = (function () {
     for (let i = 0; i < gameBoard.length; i++) {
       const btn = document.createElement('button');
       btn.classList.add('grid-child');
+      btn.classList.add(`btn${i}`);
       gameBoard.push(btn);
       gameBoard.shift();
     }
@@ -27,18 +28,49 @@ const GameBoard = (function () {
   };
 
   return {
-    populateArray: populateArray,
+    populateArray,
     getGrid,
+    gameBoard,
   };
 })();
 
-const GameState = (function () {
+GameBoard.populateArray();
+GameBoard.getGrid();
+
+const GameState = (function (board) {
   let gamePlaying = false;
+  let playerOnePlaying = true;
+  // let clickedWrongBtn = false;
+
+  function _btnClick() {
+    board.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (playerOnePlaying) {
+          if (gamePlaying === false) {
+            gamePlaying = true;
+          }
+          if (gamePlaying) {
+            btn.textContent = 'X';
+            playerOnePlaying = false;
+          }
+        } else {
+          if (gamePlaying) {
+            btn.textContent = 'O';
+            playerOnePlaying = true;
+          }
+        }
+      });
+    });
+  }
+
+  const clickOnBtn = () => {
+    _btnClick();
+  };
 
   return {
-    gamePlaying,
+    clickOnBtn,
   };
-})();
+})(GameBoard.gameBoard);
 
 const Players = (playerOne, playerTwo) => {
   return { playerOne, playerTwo };
@@ -46,5 +78,4 @@ const Players = (playerOne, playerTwo) => {
 
 const players = Players(prompt('Player One name?'), prompt('Player Two name?'));
 
-GameBoard.populateArray();
-GameBoard.getGrid();
+GameState.clickOnBtn();
