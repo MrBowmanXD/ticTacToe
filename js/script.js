@@ -1,23 +1,34 @@
-const container = document.querySelector('.grid-container');
+const gridContainer = document.querySelector('.grid-container');
 
 const GameBoard = (function () {
-  let gameBoard = [];
+  let gameBoard = new Array(9);
 
-  for (let i = 0; i < 9; i++) {
-    const div = document.createElement('div');
-    div.textContent = 'O';
-    div.classList.add('.grid-child');
-    gameBoard.push(div);
-    container.appendChild(div);
+  function _pushBtn() {
+    for (let i = 0; i < gameBoard.length; i++) {
+      const btn = document.createElement('button');
+      btn.classList.add('grid-child');
+      gameBoard.push(btn);
+      gameBoard.shift();
+    }
   }
 
-  container.setAttribute(
-    'style',
-    `grid-template-columns:(repeat 3, 1fr); grid-template-rows:(repeat 3, 1fr);`
-  );
+  const populateArray = () => {
+    _pushBtn();
+  };
+
+  function _displayGrid() {
+    gameBoard.forEach((btn) => {
+      gridContainer.appendChild(btn);
+    });
+  }
+
+  const getGrid = () => {
+    _displayGrid();
+  };
 
   return {
-    gameBoard,
+    populateArray: populateArray,
+    getGrid,
   };
 })();
 
@@ -34,4 +45,6 @@ const Players = (playerOne, playerTwo) => {
 };
 
 const players = Players(prompt('Player One name?'), prompt('Player Two name?'));
-console.log(players);
+
+GameBoard.populateArray();
+GameBoard.getGrid();

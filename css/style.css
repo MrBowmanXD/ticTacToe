@@ -4,6 +4,11 @@
 
 .grid-container {
   display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  width: 70%;
+  height: 500px;
+  margin: auto;
 }
 
 .grid-child {
