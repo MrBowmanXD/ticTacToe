@@ -1,0 +1,12 @@
+.center {
+  text-align: center;
+}
+
+.grid-container {
+  display: grid;
+}
+
+.grid-child {
+  padding: 15px;
+  border: 1px solid black;
+}
