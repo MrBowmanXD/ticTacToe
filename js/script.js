@@ -1,4 +1,5 @@
 const gridContainer = document.querySelector('.grid-container');
+const winMessage = document.querySelector('.win-message');
 
 const GameBoard = (function () {
   let gameBoard = new Array(9);
@@ -40,7 +41,6 @@ GameBoard.getGrid();
 const GameState = (function (board) {
   let gamePlaying = false;
   let playerOnePlaying = true;
-  // let clickedWrongBtn = false;
 
   function _btnClick() {
     board.forEach((btn) => {
@@ -56,11 +56,13 @@ const GameState = (function (board) {
           if (gamePlaying) {
             btn.textContent = 'X';
             playerOnePlaying = false;
+            _checkWinX();
           }
         } else {
           if (gamePlaying) {
             btn.textContent = 'O';
             playerOnePlaying = true;
+            _checkWinO();
           }
         }
       });
@@ -70,6 +72,35 @@ const GameState = (function (board) {
   const clickOnBtn = () => {
     _btnClick();
   };
+
+  function _checkWinX() {
+    console.log('This function runs');
+    if (
+      board[0].textContent === 'X' &&
+      board[1].textContent === 'X' &&
+      board[2].textContent === 'X'
+    ) {
+      gamePlaying = false;
+      const div = document.createElement('div');
+      div.textContent = 'Player One wins!';
+      div.classList.add('message');
+      winMessage.appendChild(div);
+    }
+  }
+
+  function _checkWinO() {
+    if (
+      board[0].textContent === 'O' &&
+      board[1].textContent === 'O' &&
+      board[2].textContent === 'O'
+    ) {
+      gamePlaying = false;
+      const div = document.createElement('div');
+      div.textContent = 'Player Two wins!';
+      div.classList.add('message');
+      winMessage.appendChild(div);
+    }
+  }
 
   return {
     clickOnBtn,
